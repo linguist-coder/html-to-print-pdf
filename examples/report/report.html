@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sample Report — html-to-print-pdf</title>
+<style>
+  :root {
+    --ink: #1d1d1f;
+    --muted: #6b6360;
+    --accent: #b5341f;
+    --rule: #d9d4cf;
+    --paper: #ffffff;
+  }
+  html { font-size: 11pt; }
+  body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    line-height: 1.5;
+    margin: 0;
+    background: var(--paper);
+  }
+  h1, h2, h3 { line-height: 1.2; }
+  p { margin: 0 0 0.8em; }
+
+  /* ---- cover ---- */
+  .cover {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 24mm;
+    box-sizing: border-box;
+    background: #1d1d1f;
+    color: #fff;
+  }
+  .cover .eyebrow { letter-spacing: 0.22em; text-transform: uppercase; font-size: 10pt; color: #c9a99a; margin: 0 0 18px; }
+  .cover h1 { font-size: 40pt; margin: 0 0 14px; font-weight: 700; }
+  .cover .sub { font-size: 14pt; color: #cfcac6; max-width: 80%; }
+  .cover .meta { margin-top: auto; padding-top: 28px; font-size: 10pt; color: #9b938f; }
+
+  /* ---- imprint ---- */
+  .imprint { padding: 24mm; font-size: 9.5pt; color: var(--muted); }
+  .imprint h2 { font-size: 11pt; color: var(--ink); margin: 0 0 6px; }
+  .imprint .block { margin-bottom: 16px; }
+
+  /* ---- table of contents ---- */
+  .toc { padding: 0 24mm; }
+  .toc h2 { font-size: 24pt; border-bottom: 2px solid var(--ink); padding-bottom: 10px; margin: 0 0 18px; }
+  .toc ol { list-style: none; margin: 0; padding: 0; }
+  .toc li { margin: 0.5em 0; }
+  .toc a {
+    display: flex;
+    align-items: baseline;
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 12pt;
+  }
+  .toc a .t { flex: 0 1 auto; }
+  .toc a .dots { flex: 1 1 auto; border-bottom: 1px dotted #b3aca6; margin: 0 8px; transform: translateY(-3px); }
+
+  /* ---- body sections ---- */
+  section.chapter { padding: 0 24mm; }
+  .section-tag { letter-spacing: 0.18em; text-transform: uppercase; font-size: 9pt; color: var(--accent); margin: 0 0 4px; }
+  section.chapter h2 { font-size: 22pt; margin: 0 0 12px; }
+  section.chapter h3 { font-size: 13pt; margin: 1.2em 0 0.3em; }
+
+  table { width: 100%; border-collapse: collapse; margin: 1em 0; font-size: 10pt; }
+  caption { caption-side: top; text-align: left; font-weight: 700; margin-bottom: 6px; }
+  th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--rule); }
+  thead th { border-bottom: 2px solid var(--ink); }
+
+  figure { margin: 1.2em 0; }
+  figure svg { width: 100%; height: auto; border: 1px solid var(--rule); }
+  figcaption { font-size: 9pt; color: var(--muted); margin-top: 6px; }
+
+  blockquote {
+    margin: 1.2em 0; padding: 4px 0 4px 16px;
+    border-left: 3px solid var(--accent);
+    font-size: 13pt; color: #2c2c2e;
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER (no page number) -->
+<section class="cover">
+  <p class="eyebrow">Technical Report</p>
+  <h1>The Print Pipeline</h1>
+  <p class="sub">Turning designed HTML into a print-ready PDF with live page numbers and a computed table of contents.</p>
+  <p class="meta">Sample document · html-to-print-pdf · v0.1</p>
+</section>
+
+<!-- IMPRINT (page count restarts here) -->
+<section class="imprint">
+  <div class="block">
+    <h2>About this document</h2>
+    <p>This is a self-contained sample used by the project's <code>npm run example</code>.
+       It exercises every feature of the print overlay: a cover with no folio,
+       restarted page numbering, a table of contents whose page references are
+       computed at layout time, and pagination guards that keep headings, tables,
+       and figures from breaking badly.</p>
+  </div>
+  <div class="block">
+    <h2>License</h2>
+    <p>Sample content released under the MIT License. Reuse freely.</p>
+  </div>
+</section>
+
+<!-- TABLE OF CONTENTS (page numbers injected by the overlay) -->
+<nav class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#why"><span class="t">Why HTML for print</span><span class="dots"></span></a></li>
+    <li><a href="#how"><span class="t">How the pipeline works</span><span class="dots"></span></a></li>
+    <li><a href="#features"><span class="t">What the overlay adds</span><span class="dots"></span></a></li>
+    <li><a href="#notes"><span class="t">Notes &amp; trade-offs</span><span class="dots"></span></a></li>
+  </ol>
+</nav>
+
+<!-- BODY -->
+<section class="chapter">
+  <p class="section-tag">Background</p>
+  <h2 id="why">Why HTML for print</h2>
+  <p>HTML and CSS are an underrated typesetting engine. With the Paged Media
+     specification, the same markup that renders in a browser can be paginated
+     into a print-ready document — complete with page boxes, running headers,
+     and cross-references — without opening a layout application.</p>
+  <blockquote>The document is the source. The PDF is just one of its renderings.</blockquote>
+  <p>That matters when the content is generated or frequently revised: a report
+     built from data, a localized manual produced in twelve languages, or an
+     ebook regenerated on every edit. Manual layout doesn't scale to those; a
+     pipeline does.</p>
+</section>
+
+<section class="chapter">
+  <p class="section-tag">Mechanism</p>
+  <h2 id="how">How the pipeline works</h2>
+  <p>The tool performs four deterministic steps and leaves the document's own
+     design untouched:</p>
+  <table>
+    <caption>Pipeline stages</caption>
+    <thead>
+      <tr><th>Stage</th><th>What happens</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1. Read</td><td>Load the source HTML file.</td></tr>
+      <tr><td>2. Inline</td><td>Embed local images as data URIs so the file is portable.</td></tr>
+      <tr><td>3. Overlay</td><td>Inject print CSS: page size, margins, folios, live TOC.</td></tr>
+      <tr><td>4. Render</td><td>Paginate with Paged.js (headless Chrome) and write the PDF.</td></tr>
+    </tbody>
+  </table>
+  <p>Because rendering uses Chrome's engine, vector text and SVG are preserved
+     and fonts are embedded by the PDF writer.</p>
+</section>
+
+<section class="chapter">
+  <p class="section-tag">Output</p>
+  <h2 id="features">What the overlay adds</h2>
+  <h3>Page numbers</h3>
+  <p>Folios appear from the imprint page onward; the cover is excluded. Position,
+     color, font, and size are configurable.</p>
+  <h3>A live table of contents</h3>
+  <p>Each TOC link is resolved to its real page number after layout with
+     <code>target-counter()</code> — no manual updates when the content shifts.</p>
+  <h3>Pagination guards</h3>
+  <p>Headings stay with the text they introduce; figures, tables, and quotes are
+     kept whole rather than split across a page boundary.</p>
+  <figure>
+    <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+      <rect width="600" height="200" fill="#f6f4f1"/>
+      <rect x="40" y="40" width="120" height="120" fill="#fff" stroke="#1d1d1f" stroke-width="2"/>
+      <text x="100" y="105" font-family="Arial" font-size="14" text-anchor="middle" fill="#1d1d1f">HTML</text>
+      <rect x="240" y="40" width="120" height="120" fill="#fff" stroke="#1d1d1f" stroke-width="2"/>
+      <text x="300" y="98" font-family="Arial" font-size="13" text-anchor="middle" fill="#1d1d1f">Paged.js</text>
+      <text x="300" y="118" font-family="Arial" font-size="10" text-anchor="middle" fill="#6b6360">+ Chrome</text>
+      <rect x="440" y="40" width="120" height="120" fill="#b5341f"/>
+      <text x="500" y="105" font-family="Arial" font-size="14" text-anchor="middle" fill="#fff">PDF</text>
+      <line x1="160" y1="100" x2="240" y2="100" stroke="#1d1d1f" stroke-width="2" marker-end="url(#a)"/>
+      <line x1="360" y1="100" x2="440" y2="100" stroke="#1d1d1f" stroke-width="2" marker-end="url(#a)"/>
+      <defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1d1d1f"/></marker></defs>
+    </svg>
+    <figcaption>The three-stage rendering path, preserved as vector in the PDF.</figcaption>
+  </figure>
+</section>
+
+<section class="chapter">
+  <p class="section-tag">Caveats</p>
+  <h2 id="notes">Notes &amp; trade-offs</h2>
+  <p>CSS Grid does not fragment across pages — a grid block jumps whole to the
+     next page and can strand a heading. Convert long grids to multi-column
+     layout when they need to flow. Web-font headings render correctly but are
+     not extractable as text, so verify content against the body text and a
+     page image rather than the headline.</p>
+  <p>The renderer is the open-source Paged.js, so the entire pipeline can be
+     handed to a client with no licensing cost and no watermark.</p>
+</section>
+
+</body>
+</html>

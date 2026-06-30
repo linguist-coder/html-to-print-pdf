@@ -1,0 +1,14 @@
+{
+  "size": "A4",
+  "margin": "18mm",
+  "pageNumbers": true,
+  "pageNumberPosition": "bottom-center",
+  "pageNumberColor": "#6b6360",
+  "pageNumberFont": "'Helvetica Neue', Arial, sans-serif",
+  "pageNumberFontSize": "9pt",
+  "coverSelector": ".cover",
+  "startCounterSelector": ".imprint",
+  "tocLinkSelector": ".toc a[href^=\"#\"]",
+  "tocNumberColor": "#b5341f",
+  "paginationSafety": true
+}

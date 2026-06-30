@@ -1,0 +1,40 @@
+{
+  "name": "html-to-print-pdf",
+  "version": "0.1.0",
+  "description": "Turn designed HTML/CSS into a print-ready PDF with page numbers and a live table of contents — no manual layout, no watermark.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "html-to-print-pdf": "bin/cli.mjs"
+  },
+  "files": [
+    "bin",
+    "src"
+  ],
+  "scripts": {
+    "example": "node bin/cli.mjs examples/report/report.html -o examples/report/report.pdf --config examples/report/print.config.json"
+  },
+  "keywords": [
+    "pdf",
+    "html-to-pdf",
+    "print",
+    "pagedjs",
+    "paged-media",
+    "table-of-contents",
+    "page-numbers",
+    "ebook",
+    "report",
+    "dtp"
+  ],
+  "author": "Sho Nishimoto (linguist-coder)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/linguist-coder/html-to-print-pdf.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "pagedjs-cli": "^0.4.3"
+  }
+}
