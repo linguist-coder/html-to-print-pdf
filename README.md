@@ -129,4 +129,4 @@ Move content around and the numbers stay correct — no manual updates.
 
 ## License
 
-MIT © Sho Nishimoto ([linguist-coder](https://github.com/linguist-coder))
+MIT © [linguist-coder](https://github.com/linguist-coder)
