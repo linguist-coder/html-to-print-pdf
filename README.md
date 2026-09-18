@@ -9,6 +9,10 @@ folios, restarted page counts, and a TOC whose page references are computed at
 layout time. Built on the open-source [Paged.js](https://pagedjs.org/) engine,
 so the whole pipeline can be handed to a client freely.
 
+Background: [How a Print PDF Should Be Built from HTML](https://www.linguist-coder.com/2026/07/how-print-pdf-should-be-built-from-html.html)
+covers why page numbers and TOC references belong to the layout engine, not to
+the text or to the browser's Print dialog.
+
 ## What it does
 
 Given a designed HTML file, the tool runs four deterministic steps and leaves
